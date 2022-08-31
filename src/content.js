@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Input } from "antd";
 import { RightOutlined } from "@ant-design/icons";
 import PhoneForm from "./phoneForm";
 export const Content = (props) => {
   const [form] = Form.useForm();
   const { TextArea } = Input;
-
+  let render = true;
   const questions = [
     {
       message: "I want to Sell my Car 🏎️ ",
@@ -33,6 +33,12 @@ export const Content = (props) => {
     elem.scrollTop = elem.scrollHeight;
     props.setactionStarted(true);
   };
+  useEffect(() => {
+    if (props.showInitialText && render) {
+      handlePreDefinedMessages({ message: props?.data?.initialText });
+      render = false;
+    }
+  }, []);
   return (
     <div
       className={
@@ -59,23 +65,24 @@ export const Content = (props) => {
       ) : (
         <div className="predefined-questions">
           Choose from a Question Below:
-          {questions.map((item, i) => (
-            <div
-              key={i}
-              onClick={() =>
-                handlePreDefinedMessages({
-                  message:
-                    props.flow === "1"
-                      ? "Enter your information and our representative will contact you shortly"
-                      : item.message,
-                })
-              }
-              className="predefined-questions-child"
-            >
-              <p> {item.message}</p>{" "}
-              <RightOutlined style={{ marginTop: "10px" }} />
-            </div>
-          ))}
+          {props &&
+            props?.data &&
+            props?.data?.webChatWidgetQuestion &&
+            props?.data?.webChatWidgetQuestion.length > 0 &&
+            props?.data?.webChatWidgetQuestion?.map((item, i) => (
+              <div
+                key={i}
+                onClick={() =>
+                  handlePreDefinedMessages({
+                    message: item.question,
+                  })
+                }
+                className="predefined-questions-child"
+              >
+                <p> {item.question}</p>{" "}
+                <RightOutlined style={{ marginTop: "10px" }} />
+              </div>
+            ))}
         </div>
       )}
       {props.actionStarted &&
@@ -88,6 +95,7 @@ export const Content = (props) => {
             flow={props.flow}
             name={props.name}
             apiData={props.apiData}
+            data={props.data}
           />
         )}
       {props.actionStarted && props.phoneForm && (
@@ -98,6 +106,7 @@ export const Content = (props) => {
           flow={props.flow}
           name={props.name}
           apiData={props.apiData}
+          data={props.data}
         />
       )}
     </div>

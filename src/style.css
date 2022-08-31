@@ -208,8 +208,8 @@ div.heading-div {
 }
 
 .ant-popover {
-  left: 162.5vh !important;
+  left: 157.5vh !important;
   margin-top: 32vh !important;
-  top: 0px !important;
+  top: -156px !important;
   position: fixed;
 }
