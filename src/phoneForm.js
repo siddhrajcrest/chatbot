@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/client/react";
 import { SAVE_PHONE } from "./graphql/mutation";
 const PhoneForm = (props) => {
   const [form] = Form.useForm();
-  console.log(props.apiData);
+  console.log(props.data);
   const { TextArea } = Input;
   const [savePhone, { data, loading }] = useMutation(SAVE_PHONE);
   console.log(data);
@@ -15,6 +15,12 @@ const PhoneForm = (props) => {
       <Form
         form={form}
         onFinish={(values) => {
+          props.handlePreDefinedMessages({
+            message: `${values.phoneNumber} ${values.name} ${
+              values.message ? values.message : ""
+            }`,
+          });
+          props.setPhoneNumber(values.phoneNumber);
           savePhone({
             variables: {
               companyId: props?.apiData?.companyId,
@@ -23,12 +29,7 @@ const PhoneForm = (props) => {
             },
           }).then((res) => {
             if (res.data.savePhone.statusCode === 200) {
-              props.handlePreDefinedMessages({
-                message: `${values.phoneNumber} ${values.name} ${
-                  values.message ? values.message : ""
-                }`,
-              });
-              props.setPhoneNumber(values.phoneNumber);
+              
             }
           });
         }}
@@ -67,8 +68,8 @@ const PhoneForm = (props) => {
           Submit
         </Button>
       </Form>
-      <p style={{ fontSize: "9px" }}>
-        By submitting. you authorize {props.name} to send text messages with
+      <p style={{ fontSize: "9px",marginBottom:'20px' }}>
+        By submitting. you authorize {props.data.location.company.name} : {props.data.location.title} to send text messages with
         offers & other information. possibly using automated technology, to the
         number you provided. Message/data rates apply. Consent is not a
         condition of purchase.

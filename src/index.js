@@ -11,7 +11,7 @@ widget.style.bottom = "0px";
 document.body.appendChild(widget);
 
 
-const getId=document.getElementById("business_id");
+const getId=document.getElementById("business-id");
 
 const client = new ApolloClient({
   uri: 'http://localhost:5000/chat_api',

@@ -6,7 +6,6 @@ import "./style.css";
 
 export default function App(props) {
   const [widgetVisible, setwidgetVisible] = useState(false);
-
   return (
     <div style={{ height: "100%" }}>
       {/* <div
@@ -18,21 +17,32 @@ export default function App(props) {
           marginRight: '50px',
         }}
       ></div> */}
-      <div>
-        <Popover
-          style={{
-            position: "fixed !important",
-            bottom: "0px !important",
-            marginBottom: "30px !important",
-            right: "0px !important",
-            marginRight: "50px !important",
-          }}
-          // id="pop-widget"
-          placement="topRight"
-          // style={{ display: "block", position: "fixed", marginRight: "500px" }}
-          content={<WidgetContent id={props.id} />}
-          visible={widgetVisible}
-        >
+      <div
+        style={{
+          position: "fixed",
+          bottom: 0,
+          marginBottom: "30px",
+          right: 0,
+          marginRight: "50px",
+        }}
+      >
+          <div
+            style={{
+              display: `${widgetVisible?"block":"none"}`,
+              width: "35%",
+              marginLeft: "auto",                                                                              
+              marginRight: "20px",
+              borderRadius: "15px",
+              // border: "1px solid",
+              borderBottomRightRadius: "0px",
+              zIndex: 9999,
+              backgroundColor: "white",
+              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+            }}
+          >
+            <WidgetContent id={props.id} />
+          </div>
+        <div style={{ width: "100%", textAlign: "right" }}>
           {" "}
           <Button
             size="large"
@@ -40,17 +50,13 @@ export default function App(props) {
             style={{
               borderRadius: "30px",
               borderTopRightRadius: "5px",
-              position: "fixed",
-              bottom: 0,
-              marginBottom: "30px",
-              right: 0,
-              marginRight: "50px",
             }}
             onClick={() => setwidgetVisible((prev) => !prev)}
           >
             {widgetVisible ? <CloseOutlined /> : <MessageOutlined />}
           </Button>
-        </Popover>
+        </div>
+        {/* </Popover> */}
       </div>
     </div>
   );

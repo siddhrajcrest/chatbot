@@ -13,7 +13,7 @@ p {
 .ant-btn-primary:focus {
   background-color: rgb(142, 11, 97);
 }
-.ant-popover-inner {
+/* .ant-popover-inner {
   border-radius: 15px;
   width: 350px;
   height: 550px;
@@ -21,7 +21,7 @@ p {
 .ant-popover-inner-content {
   padding: 0px;
   height: 100%;
-}
+} */
 .heading {
   background: rgb(142, 11, 97);
   border-top-left-radius: 15px;
@@ -90,7 +90,7 @@ div.input-button-wrapper {
 /* message sent by user */
 .message-recieved {
   background-color: rgb(142, 11, 97);
-  padding: 15px;
+  /* padding: 15px; */
   color: white;
   margin: 15px;
   margin-left: 7px;
@@ -101,15 +101,9 @@ div.input-button-wrapper {
 }
 
 .footer {
-  height: 8%;
   /* background-color: white; */
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  padding: 1px 15px;
-  bottom: 0;
-  position: absolute;
+  /* position: absolute; */
   text-align: center;
-  width: 100%;
 }
 .footer-image {
   width: 20px;
@@ -195,21 +189,21 @@ div.heading-div {
   justify-content: space-between;
 }
 
-#pop-widget {
+/* #pop-widget {
   left: 79%;
   top: 32%;
   transform-origin: 352px 571.312px;
   position: fixed;
-}
+} */
 
 .Spinner {
   width: 100%;
   margin-top: 50%;
 }
 
-.ant-popover {
+/* .ant-popover {
   left: 162.5vh !important;
   margin-top: 32vh !important;
   top: 0px !important;
   position: fixed;
-}
+} */
