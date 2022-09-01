@@ -14,10 +14,10 @@ document.body.appendChild(widget);
 const getId=document.getElementById("business-id");
 
 const client = new ApolloClient({
-  uri: 'http://localhost:5000/chat_api',
+  uri: 'http://192.168.29.113:5000/chat_api',
   cache: new InMemoryCache(),
 });
-
+console.log("Called")
 const root = ReactDOM.createRoot(document.getElementById('chatbot-widget'));
 root.render(
   <ApolloProvider client={client} >

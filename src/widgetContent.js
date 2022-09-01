@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Heading } from "./heading";
 import { SendMessage } from "./sendMessage";
 import { Content } from "./content";
@@ -9,11 +9,13 @@ import { useQuery } from "@apollo/client/react";
 export const WidgetContent = (props) => {
   console.log(props.id);
   const [message, setMessage] = useState("");
+  const messenger = useRef(null);
   const [messageList, setMessageList] = useState([]);
   const [actionStarted, setactionStarted] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [PhoneValue, setPhoneValue] = useState("");
   const [phoneForm, setphoneForm] = useState(false);
+  const [Download, setDownload] = useState(false);
   const [userAgentDetails, setUserAgentDetails] = useState({
     ipAddress: "",
     browserAgent: "",
@@ -57,8 +59,9 @@ export const WidgetContent = (props) => {
       widgetUid: props?.id?.replace(/\s+/g, " ")?.trim(),
     },
     onCompleted: (res) => {
-      if (res.getWebChatWidget) {
-        setwidgetData({ ...res.getWebChatWidget });
+      console.log();
+      if (res?.getWebChatWidget) {
+        setwidgetData({ ...res?.getWebChatWidget });
         if (
           (res?.getWebChatWidget?.isPhoneRequired &&
             res?.getWebChatWidget?.switchToSmsInd) ||
@@ -70,29 +73,41 @@ export const WidgetContent = (props) => {
           !res?.getWebChatWidget?.isPhoneRequired &&
           res?.getWebChatWidget?.switchToSmsInd
         ) {
-          setflow("2");
+          setflow("3");
         } else if (
           !res?.getWebChatWidget?.isPhoneRequired &&
           !res?.getWebChatWidget?.switchToSmsInd
         ) {
-          setflow("3");
+          setflow("2");
         }
-        if (!res.getWebChatWidget.presetQuestionInd) {
+        if (!res?.getWebChatWidget?.presetQuestionInd) {
           setactionStarted(true);
         }
+      } else if (res.getWebChatWidget === null) {
+        console.log("called");
+        const element = document.getElementById("business-id");
+        const div = document.getElementById("chatbot-widget");
+        element.remove();
+        div.remove();
       }
     },
   });
-  console.log(flow);
+  const DownloadMessages = () => {
+    if (phoneNumber === "") {
+      setphoneForm(true);
+      setDownload(true);
+    }
+  };
   return (
     !loading && (
       <div className="mainContainer">
-        {/* <Spin className="Spinner" tip="Gathering Details..." spinning={loading}> */}
+        <Spin className="Spinner" tip="Gathering Details..." spinning={loading}>
           <Heading
             actionStarted={actionStarted}
             setactionStarted={setactionStarted}
             setMessageList={setMessageList}
             setPhoneNumber={setPhoneNumber}
+            DownloadMessages={DownloadMessages}
             setPhoneValue={setPhoneValue}
             data={widgetData}
             showarrow={data?.getWebChatWidget?.presetQuestionInd}
@@ -105,15 +120,16 @@ export const WidgetContent = (props) => {
             phoneNumber={phoneNumber}
             setPhoneNumber={setPhoneNumber}
             flow={flow}
+            messenger={messenger}
             phoneForm={phoneForm}
             setphoneForm={setphoneForm}
             data={widgetData}
+            Download={Download}
             apiData={data?.getUniqueIdDetails}
             showInitialText={!data?.getWebChatWidget?.presetQuestionInd}
           />
           {flow === "1" &&
-            ((actionStarted && phoneNumber !== "") ||
-              (!actionStarted && phoneNumber === "")) && (
+            ((actionStarted && phoneNumber !== "") || !actionStarted) && (
               <SendMessage
                 message={message}
                 setMessage={setMessage}
@@ -127,6 +143,7 @@ export const WidgetContent = (props) => {
                 setPhoneValue={setPhoneValue}
                 data={widgetData}
                 flow={flow}
+                messenger={messenger}
               />
             )}
           {flow !== "1" && (
@@ -145,9 +162,10 @@ export const WidgetContent = (props) => {
               setphoneForm={setphoneForm}
               data={widgetData}
               phoneForm={phoneForm}
+              messenger={messenger}
             />
           )}
-          <Footer />
+          <Footer DownloadMessages={DownloadMessages} />
           <style jsx>
             {`
               .mainContainer ::-webkit-scrollbar {
@@ -172,6 +190,7 @@ export const WidgetContent = (props) => {
               }
             `}
           </style>
+        </Spin>
       </div>
     )
   );

@@ -1,64 +1,89 @@
-import React, { useEffect } from "react";
-import { Form, Input } from "antd";
+import React, { useEffect, useRef } from "react";
 import { RightOutlined } from "@ant-design/icons";
-import PhoneForm from "./phoneForm";
+import { PhoneWrap } from "./PhoneWrap";
+
 export const Content = (props) => {
-  const [form] = Form.useForm();
-  const { TextArea } = Input;
+  console.log(props.fnBrowserDetect);
   let render = true;
-  const questions = [
-    {
-      message: "I want to Sell my Car 🏎️ ",
-    },
-    {
-      message: "I want to buy a Sedan Car 🚙 ",
-    },
-    {
-      message: "I want to trade my old car and buy a Luxury car 🏎️",
-    },
-  ];
-  const handlePreDefinedMessages = (item) => {
+  const handlePreDefinedMessages = (item, clear = false) => {
     var now = new Date();
-    props.setMessageList((prev) => [
-      ...prev,
-      {
-        message: item.message,
-        time: `${
-          now.getMonth() + 1
-        }/${now.getDate()}/${now.getFullYear()}, ${now.getHours()}:${now.getMinutes()}`,
-      },
-    ]);
+    if (!clear) {
+      props?.setMessageList((prev) => [
+        ...prev,
+        {
+          message: item?.message,
+          time: `${
+            now.getMonth() + 1
+          }/${now.getDate()}/${now.getFullYear()}, ${now.getHours()}:${now.getMinutes()}`,
+        },
+      ]);
+    } else {
+      props?.setMessageList([
+        {
+          message: item?.message,
+          time: `${
+            now.getMonth() + 1
+          }/${now.getDate()}/${now.getFullYear()}, ${now.getHours()}:${now.getMinutes()}`,
+        },
+      ]);
+    }
     // props.setMessage('');
-    const elem = document.getElementById("message");
-    elem.scrollTop = elem.scrollHeight;
+    // const elem = document.getElementById("message");
+    // if (elem) {
+    //   if (!clear) elem.scrollTop = elem?.scrollHeight;
+    // }
+    if (!clear) props.messenger.current.scrollTop = props.messenger.current.scrollHeight;
     props.setactionStarted(true);
   };
   useEffect(() => {
-    if (props.showInitialText && render) {
+    if (props?.showInitialText && render) {
       handlePreDefinedMessages({ message: props?.data?.initialText });
       render = false;
     }
   }, []);
+  console.log(
+    props.actionStarted,
+    props.phoneForm,
+    props.phoneNumber === "",
+    props.flow !== "1"
+  );
   return (
     <div
       className={
-        props.actionStarted && props.phoneNumber === "" && props.flow === "1"
-          ? "message-div-65"
+        props?.actionStarted && props?.phoneNumber !== ""
+          ? "message-div-small"
           : "message-div"
       }
+      ref={props.messenger}
       id="message"
     >
-      {props.actionStarted ? (
+      {props?.actionStarted ? (
         props &&
         props.messageList &&
         props.messageList.length > 0 &&
-        props.messageList.map((item, i) => (
+        props?.messageList?.map((item, i) => (
           <div key={i}>
-            <p className={i % 2 === 0 ? "message-recieved" : "message-sent"}>
-              {item.message}
+            <p
+              className={
+                props?.showInitialText
+                  ? i === 0
+                    ? "message-recieved"
+                    : "message-sent"
+                  : "message-sent"
+              }
+            >
+              {item?.message}
             </p>
-            <p className={i % 2 === 0 ? "time-recieved" : "time-sent"}>
-              {i % 2 === 0 ? " messaged on" : " messaged on"} {item.time}
+            <p
+              className={
+                props?.showInitialText
+                  ? i === 0
+                    ? "time-recieved"
+                    : "time-sent"
+                  : "time-sent"
+              }
+            >
+              {" messaged on"} {item?.time}
             </p>
           </div>
         ))
@@ -73,13 +98,16 @@ export const Content = (props) => {
               <div
                 key={i}
                 onClick={() =>
-                  handlePreDefinedMessages({
-                    message: item.question,
-                  })
+                  handlePreDefinedMessages(
+                    {
+                      message: item?.question,
+                    },
+                    props?.messageList?.length === 1
+                  )
                 }
                 className="predefined-questions-child"
               >
-                <p> {item.question}</p>{" "}
+                <p> {item?.question}</p>{" "}
                 <RightOutlined style={{ marginTop: "10px" }} />
               </div>
             ))}
@@ -88,27 +116,22 @@ export const Content = (props) => {
       {props.actionStarted &&
         props.phoneNumber === "" &&
         props.flow === "1" && (
-          <PhoneForm
+          <PhoneWrap
+            messenger={props.messenger}
             handlePreDefinedMessages={handlePreDefinedMessages}
-            setPhoneNumber={props.setPhoneNumber}
-            showMessage={true}
-            flow={props.flow}
-            name={props.name}
-            apiData={props.apiData}
-            data={props.data}
-          />
+            props={props}
+          ></PhoneWrap>
         )}
-      {props.actionStarted && props.phoneForm && (
-        <PhoneForm
-          handlePreDefinedMessages={handlePreDefinedMessages}
-          setPhoneNumber={props.setPhoneNumber}
-          showMessage={false}
-          flow={props.flow}
-          name={props.name}
-          apiData={props.apiData}
-          data={props.data}
-        />
-      )}
+      {props.actionStarted &&
+        props.phoneForm &&
+        props.phoneNumber === "" &&
+        props.flow !== "1" && (
+          <PhoneWrap
+            messenger={props.messenger}
+            handlePreDefinedMessages={handlePreDefinedMessages}
+            props={props}
+          ></PhoneWrap>
+        )}
     </div>
   );
 };

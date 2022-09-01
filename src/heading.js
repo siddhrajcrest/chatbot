@@ -10,12 +10,12 @@ export const Heading = (props) => {
     <div className="heading">
       <div style={{ display: "flex" }}>
         {" "}
-        {props.actionStarted && props.showarrow && (
+        {props?.actionStarted && props?.showarrow && (
           <LeftOutlined
             style={{ marginRight: "7px", marginTop: "11px", cursor: "pointer" }}
             onClick={() => {
               // props.setMessageList([]);
-              props.setactionStarted((prev) => !prev);
+              props?.setactionStarted((prev) => !prev);
               // props.setPhoneNumber("");
 
               // props.setPhoneValue("");
@@ -27,10 +27,10 @@ export const Heading = (props) => {
           <h2>Instant Messenger 👇 </h2>
           <Tooltip title="Download your Messages">
             <CloudDownloadOutlined
+              onClick={props?.DownloadMessages}
               style={{
                 marginTop: "10px",
                 marginRight: "10px",
-                // color: "rgb(142, 11, 97)",
                 cursor: "pointer",
                 fontSize: "large",
               }}
@@ -39,9 +39,11 @@ export const Heading = (props) => {
         </div>
       </div>
       <p>
-        <MessageTwoTone /> Start the conversation and{" "}
-        {props?.data?.location?.company?.name} : {props?.data?.location?.title}{" "}
-        representative will contact you soon
+        <span style={{fontSize:'16px'}} >
+          {" "}
+          {props?.data?.location?.company?.name} :{" "}
+          {props?.data?.location?.title} <br />
+        </span>
       </p>
     </div>
   );

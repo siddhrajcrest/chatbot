@@ -13,7 +13,7 @@ p {
 .ant-btn-primary:focus {
   background-color: rgb(142, 11, 97);
 }
-.ant-popover-inner {
+/* .ant-popover-inner {
   border-radius: 15px;
   width: 350px;
   height: 550px;
@@ -21,12 +21,12 @@ p {
 .ant-popover-inner-content {
   padding: 0px;
   height: 100%;
-}
+} */
 .heading {
   background: rgb(142, 11, 97);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  padding: 10px 20px;
+  padding: 10px 20px 2px;
   color: white;
   font-weight: bold;
 }
@@ -61,25 +61,22 @@ div.input-button-wrapper {
 .ant-input {
   border-radius: 15px;
 }
+.message-div-small {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
 .message-div {
-  height: 50%;
   overflow-y: auto;
-}
-.message-div-49 {
-  height: 49%;
-  overflow-y: auto;
-}
-.message-div-65 {
-  height: 65%;
-  overflow-y: auto;
+  max-height: 225px;
 }
 
 /* Message recieved from admin */
 .message-sent {
   text-align: right;
-  padding: 15px;
+  padding: 5px 10px;
   background-color: rgb(78, 78, 226);
-  border-radius: 15px;
+  border-radius: 10px;
   border-top-right-radius: 0px;
   margin: 15px;
   margin-right: 7px;
@@ -90,26 +87,21 @@ div.input-button-wrapper {
 /* message sent by user */
 .message-recieved {
   background-color: rgb(142, 11, 97);
-  padding: 15px;
+  padding: 5px 10px;
   color: white;
   margin: 15px;
   margin-left: 7px;
-  border-radius: 15px;
+  border-radius: 10px;
   border-top-left-radius: 0px;
   margin-right: 50px;
   margin-bottom: 0px;
 }
 
 .footer {
-  height: 8%;
+  padding: 10px 10px 5px 10px;
   /* background-color: white; */
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  padding: 1px 15px;
-  bottom: 0;
-  position: absolute;
+  /* position: absolute; */
   text-align: center;
-  width: 100%;
 }
 .footer-image {
   width: 20px;
@@ -117,12 +109,16 @@ div.input-button-wrapper {
 
 .time-recieved {
   margin-left: 15px;
-  font-weight: 502;
+  font-size: 13px;
+  color: #5b5b5b;
+  font-weight: normal;
 }
 .time-sent {
   text-align: right;
   margin-right: 15px;
-  font-weight: 502;
+  font-size: 13px;
+  color: #5b5b5b;
+  font-weight: normal;
 }
 
 .predefined-questions {
@@ -187,7 +183,7 @@ div.predefined-questions-child:hover {
   /* width: 21%; */
   background-color: #c9c9c91f;
   border-radius: 15px;
-  margin: -25px 15px;
+  margin: 0px 15px;
 }
 div.heading-div {
   display: flex;
@@ -195,21 +191,21 @@ div.heading-div {
   justify-content: space-between;
 }
 
-#pop-widget {
+/* #pop-widget {
   left: 79%;
   top: 32%;
   transform-origin: 352px 571.312px;
   position: fixed;
-}
+} */
 
 .Spinner {
   width: 100%;
   margin-top: 50%;
 }
 
-.ant-popover {
-  left: 157.5vh !important;
+/* .ant-popover {
+  left: 162.5vh !important;
   margin-top: 32vh !important;
-  top: -156px !important;
+  top: 0px !important;
   position: fixed;
-}
+} */
