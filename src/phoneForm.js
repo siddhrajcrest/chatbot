@@ -5,10 +5,8 @@ import { useMutation } from "@apollo/client/react";
 import { SAVE_PHONE } from "./graphql/mutation";
 const PhoneForm = (props) => {
   const [form] = Form.useForm();
-  console.log(props.data);
   const { TextArea } = Input;
   const [savePhone, { data, loading }] = useMutation(SAVE_PHONE);
-  console.log(data);
   const validPhone = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
   return (
     <div className={props.flow === "3" ? "form-group-phone" : "form-group"}>
@@ -29,12 +27,16 @@ const PhoneForm = (props) => {
             },
           }).then((res) => {
             if (res.data.savePhone.statusCode === 200) {
-              
             }
           });
         }}
       >
         {" "}
+        <p style={{fontSize:'13px',color:'#5b5b5b'}} >
+          {props.download
+            ? "Please enter your details and we will send the link to download your messages"
+            : "Please enter your basic details"}
+        </p>
         <Form.Item
           name="name"
           rules={[{ required: true, message: "Please enter your name" }]}
@@ -68,11 +70,12 @@ const PhoneForm = (props) => {
           Submit
         </Button>
       </Form>
-      <p style={{ fontSize: "9px",marginBottom:'20px' }}>
-        By submitting. you authorize {props.data.location.company.name} : {props.data.location.title} to send text messages with
-        offers & other information. possibly using automated technology, to the
-        number you provided. Message/data rates apply. Consent is not a
-        condition of purchase.
+      <p style={{ fontSize: "9px", marginBottom: "20px" }}>
+        By submitting. you authorize {props.data.location.company.name} :{" "}
+        {props.data.location.title} to send text messages with offers & other
+        information. possibly using automated technology, to the number you
+        provided. Message/data rates apply. Consent is not a condition of
+        purchase.
       </p>
     </div>
   );

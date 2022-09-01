@@ -23,6 +23,7 @@ export const Footer = (props) => {
       </a>
       <Tooltip title="Download your Messages">
         <CloudDownloadOutlined
+        onClick={props.DownloadMessages}
           style={{
             marginLeft: "0.5em",
             color: "rgb(142, 11, 97)",
