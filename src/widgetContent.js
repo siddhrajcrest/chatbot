@@ -7,6 +7,7 @@ import { GET_UNIQUE_ID_DETAILS } from "./graphql/query";
 import { Spin } from "antd";
 import { useQuery } from "@apollo/client/react";
 export const WidgetContent = (props) => {
+  console.log(props.id);
   const [message, setMessage] = useState("");
   const messenger = useRef(null);
   const [messageList, setMessageList] = useState([]);
