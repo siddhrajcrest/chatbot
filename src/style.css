@@ -26,7 +26,7 @@ p {
   background: rgb(142, 11, 97);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  padding: 10px 20px 2px;
+  padding: 15px 20px 10px;
   color: white;
   font-weight: bold;
 }
@@ -69,6 +69,12 @@ div.input-button-wrapper {
 .message-div {
   overflow-y: auto;
   max-height: 225px;
+  min-height: 225px;
+}
+.message-div-without-input {
+  overflow-y: auto;
+  max-height: 225px;
+  min-height: 335px;
 }
 
 /* Message recieved from admin */
@@ -98,7 +104,7 @@ div.input-button-wrapper {
 }
 
 .footer {
-  padding: 10px 10px 5px 10px;
+  padding: 5px 10px 5px 10px;
   /* background-color: white; */
   /* position: absolute; */
   text-align: center;
@@ -128,6 +134,7 @@ div.input-button-wrapper {
   margin: 5px 15px;
   border-radius: 15px;
   font-weight: 502;
+  min-height: 215px;
 }
 .predefined-questions-child {
   display: flex;

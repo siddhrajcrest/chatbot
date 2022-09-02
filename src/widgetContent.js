@@ -58,7 +58,6 @@ export const WidgetContent = (props) => {
       widgetUid: props?.id?.replace(/\s+/g, " ")?.trim(),
     },
     onCompleted: (res) => {
-      console.log();
       if (res?.getWebChatWidget) {
         setwidgetData({ ...res?.getWebChatWidget });
         if (
@@ -83,7 +82,6 @@ export const WidgetContent = (props) => {
           setactionStarted(true);
         }
       } else if (res.getWebChatWidget === null) {
-        console.log("called");
         const element = document.getElementById("business-id");
         const div = document.getElementById("chatbot-widget");
         element.remove();
@@ -91,6 +89,14 @@ export const WidgetContent = (props) => {
       }
     },
   });
+  useEffect(() => {
+    if (error) {
+      const element = document.getElementById("business-id");
+      const div = document.getElementById("chatbot-widget");
+      element.remove();
+      div.remove();
+    }
+  }, [error]);
   const DownloadMessages = () => {
     if (phoneNumber === "") {
       setphoneForm(true);
