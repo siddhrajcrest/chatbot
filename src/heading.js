@@ -24,7 +24,13 @@ export const Heading = (props) => {
         )}
         <div className="heading-div">
           {" "}
-          <h2>Instant Messenger 👇 </h2>
+          <p>
+            <span style={{ fontSize: "16px" }}>
+              {" "}
+              {props?.data?.location?.company?.name} :{" "}
+              {props?.data?.location?.title} <br />
+            </span>
+          </p>
           <Tooltip title="Download your Messages">
             <CloudDownloadOutlined
               onClick={props?.DownloadMessages}
@@ -38,13 +44,6 @@ export const Heading = (props) => {
           </Tooltip>
         </div>
       </div>
-      <p>
-        <span style={{fontSize:'16px'}} >
-          {" "}
-          {props?.data?.location?.company?.name} :{" "}
-          {props?.data?.location?.title} <br />
-        </span>
-      </p>
     </div>
   );
 };

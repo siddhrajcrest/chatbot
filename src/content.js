@@ -32,7 +32,8 @@ export const Content = (props) => {
     // if (elem) {
     //   if (!clear) elem.scrollTop = elem?.scrollHeight;
     // }
-    if (!clear) props.messenger.current.scrollTop = props.messenger.current.scrollHeight;
+    if (!clear)
+      props.messenger.current.scrollTop = props.messenger.current.scrollHeight;
     props.setactionStarted(true);
   };
   useEffect(() => {
@@ -52,6 +53,10 @@ export const Content = (props) => {
       className={
         props?.actionStarted && props?.phoneNumber !== ""
           ? "message-div-small"
+          : props.flow === "1" &&
+            props?.actionStarted &&
+            props?.phoneNumber === ""
+          ? "message-div-without-input"
           : "message-div"
       }
       ref={props.messenger}

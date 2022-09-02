@@ -21,17 +21,28 @@ export const Footer = (props) => {
         {" "}
         SocialMiningAi
       </a>
-      <Tooltip title="Download your Messages">
-        <CloudDownloadOutlined
+      <p style={{ marginTop: "2px", fontSize: "10px" }}>
+        Terms and Conditions Apply
+      </p>
+      <p
+        style={{
+          fontSize: "10px",
+          color: "rgb(142, 11, 97)",
+          cursor: "pointer",
+          marginTop: "-8px",
+        }}
         onClick={props.DownloadMessages}
+      >
+        Download Messages{" "}
+        <CloudDownloadOutlined
+          onClick={props.DownloadMessages}
           style={{
             marginLeft: "0.5em",
             color: "rgb(142, 11, 97)",
             cursor: "pointer",
           }}
         />
-      </Tooltip>
-      <p style={{ marginTop: "2px", fontSize: "10px" }}>Terms and Conditions Apply</p>
+      </p>
     </div>
   );
 };
